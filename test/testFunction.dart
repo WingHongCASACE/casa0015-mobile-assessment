@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shake/shake.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,8 +19,24 @@ class TestLocation extends StatefulWidget {
 }
 
 class _TestLocationState extends State<TestLocation> {
-  // double Lat;
-  // double Long;
+  //late ShakeDetector detector;
+  int shakeCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    //TODO check if it is needed to create a detector
+    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+      setState(() {
+        print('I\'m shaking');
+        shakeCount++;
+      });
+      //bool isShake = true;
+
+      // Do stuff on phone shake
+    });
+    ;
+  }
 
   void getCoordinate() async {
     LocationPermission permission = await Geolocator.requestPermission();
@@ -28,19 +45,30 @@ class _TestLocationState extends State<TestLocation> {
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position);
+    double lat = position.latitude;
+    double long = position.longitude;
+    print('latitude is:$lat longitude:$long');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: ElevatedButton(
-        onPressed: () {
-          getCoordinate();
-          print('recorded coordinate');
-        },
-        child: const Text('get coordinate'),
+      child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              getCoordinate();
+              print('recorded coordinate');
+              //shake();
+            },
+            child: const Text('get coordinate'),
+          ),
+          Text(
+            shakeCount.toString(),
+            style: TextStyle(fontSize: 24),
+          ),
+        ],
       ),
     ));
   }
