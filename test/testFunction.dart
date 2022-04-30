@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:shake/shake.dart';
 
 void main() => runApp(MyApp());
@@ -23,6 +24,9 @@ class _TestLocationState extends State<TestLocation> {
   int shakeCount = 0;
 
   @override
+  double lat = 0;
+  double long = 0;
+
   void initState() {
     super.initState();
     //TODO check if it is needed to create a detector
@@ -45,31 +49,47 @@ class _TestLocationState extends State<TestLocation> {
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    double lat = position.latitude;
-    double long = position.longitude;
+    lat = position.latitude;
+    long = position.longitude;
     print('latitude is:$lat longitude:$long');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              getCoordinate();
-              print('recorded coordinate');
-              //shake();
-            },
-            child: const Text('get coordinate'),
-          ),
-          Text(
-            shakeCount.toString(),
-            style: TextStyle(fontSize: 24),
-          ),
-        ],
-      ),
-    ));
+    return SafeArea(
+      child: Scaffold(
+          body: Center(
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                getCoordinate();
+                print('recorded coordinate');
+                //shake();
+              },
+              child: const Text('get coordinate'),
+            ),
+            SizedBox(height: 24),
+            Text(
+              shakeCount.toString(),
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                MapsLauncher.launchCoordinates(lat, long);
+              },
+              child: const Text('View on map'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                MapsLauncher.launchCoordinates(lat, long);
+              },
+              child: const Text('View on map'),
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
