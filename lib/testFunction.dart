@@ -21,12 +21,12 @@ import 'package:maps_launcher/maps_launcher.dart';
 //   }
 // }
 
-class HomePage extends StatefulWidget {
+class drawResult extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _drawResultState createState() => _drawResultState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _drawResultState extends State<drawResult> {
   // The list that contains information about photos
   List _loadedPhotos = [];
   String aName = "";

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "340646994503",
+    "project_id": "wohin-essen-3bd4f",
+    "storage_bucket": "wohin-essen-3bd4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340646994503:android:80a21be86612c28ce0c762",
+        "android_client_info": {
+          "package_name": "com.wohin_essen.ucfnwho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340646994503-nbklks0ni5cis7gt3e1urrmfrvbu76ml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXFJyMeGpN5jPpJkq7ltPnbmMhKAnAnsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340646994503-nbklks0ni5cis7gt3e1urrmfrvbu76ml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
