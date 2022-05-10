@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:ucfnwho_assignment/locatePage.dart';
 
 import 'aboutPage.dart';
 
@@ -94,7 +95,12 @@ class _homePageState extends State<homePage> {
                         ),
                         elevation: MaterialStateProperty.all(0),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => locatePage()),
+                        );
+                      },
                       child: Text(
                         'Start',
                         style: TextStyle(fontSize: 30),
@@ -137,9 +143,7 @@ class _homePageState extends State<homePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              //builder: (context) => rTransition()),
-                              builder: (context) => aboutPage()),
+                          MaterialPageRoute(builder: (context) => aboutPage()),
                         );
                       },
                       child: Text(
