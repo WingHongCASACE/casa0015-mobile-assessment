@@ -45,6 +45,7 @@ dependencies:
   firebase_core: ^1.16.0
   firebase_auth: ^3.3.17
   cloud_firestore: ^3.1.14
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
 
 dev_dependencies:
   flutter_test:
@@ -98,8 +99,18 @@ flutter:
     #Image by <a href="https://pixabay.com/users/jyleen21-738506/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=749358">jyleen21</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=749358">Pixabay</a>
     - images/middle-eastern-food-gb320d4da1_1280-turkish.jpg
     #Image by <a href="https://pixabay.com/users/timokefoto-4967261/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6615971">timokefoto</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6615971">Pixabay</a>
-    - images/cafe-g8ca6d84c5_1280-background.jpg
+    - images/cafe-g8ca6d84c5_1280-homepage-background.jpg
     #Image by <a href="https://pixabay.com/users/3888952-3888952/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1872888">3888952</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1872888">Pixabay</a>
+    - images/icons8-about-100.png
+    #<a target="_blank" href="https://icons8.com/icon/3439/about">About</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    - images/icons8-hungry-100.png
+    #<a target="_blank" href="https://icons8.com/icon/bSUU2CsAJypm/hungry">Hungry</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    - images/icons8-lottery-100.png
+    #<a target="_blank" href="https://icons8.com/icon/38yd4ysLmGRK/lottery">Lottery</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    - images/icons8-booking-100.png
+    #<a target="_blank" href="https://icons8.com/icon/78945/booking">Booking</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    - images/table-g11cd0446b_1280-aboutpage-background.jpg
+    #Image by <a href="https://pixabay.com/users/kaboompics-1013994/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=791167">Karolina Grabowska</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=791167">Pixabay</a>
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
