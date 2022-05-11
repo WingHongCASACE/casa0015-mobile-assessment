@@ -5,6 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:ucfnwho_assignment/locatePage.dart';
 
 import 'aboutPage.dart';
+import 'locatePage.dart';
 
 final _auth = FirebaseAuth.instance;
 //User loggedInUser;

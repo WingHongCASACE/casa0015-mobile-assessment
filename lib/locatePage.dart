@@ -36,113 +36,127 @@ class locatePageState extends State<locatePage> {
         shakeCount++;
       });
       //bool isShake = true;
-
       // Do stuff on phone shake
     });
     ;
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-        backgroundColor: Colors.transparent,
-        //shadowColor: Colors.yellow,
-        elevation: 0,
-      ),
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(Colors.white54, BlendMode.colorDodge),
-            image: AssetImage(
-                'images/house-g219df3e8a_1920-locatePage-background.jpg'),
-            fit: BoxFit.cover,
-          ),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(''),
+          backgroundColor: Colors.transparent,
+          //shadowColor: Colors.yellow,
+          elevation: 0,
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 100.0,
-            left: 30.0,
-            right: 30.0,
-            bottom: 8.0,
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter:
+                  ColorFilter.mode(Colors.white54, BlendMode.colorDodge),
+              image: AssetImage(
+                  'images/house-g219df3e8a_1920-locatePage-background.jpg'),
+              fit: BoxFit.cover,
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              locatePageCard(
-                  Text("Use Current Location"),
-                  Icons.map,
-                  locateMethodGetCoordinate != true
-                      ? MaterialStateProperty.all(Colors.grey.shade800)
-                      : MaterialStateProperty.all(Colors.green),
-                  'get coordinate'),
-              const Divider(
-                height: 50,
-                thickness: 5,
-                indent: 20,
-                endIndent: 20,
-                color: Colors.black45,
-              ),
-              locatePageCard(
-                  TextField(
-                    onChanged: (value) {
-                      searchAddress = value;
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: "Street/Borough/City",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 100.0,
+              left: 30.0,
+              right: 30.0,
+              bottom: 8.0,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                locatePageCard(
+                    Text("Use Current Location"),
+                    Icons.map,
+                    locateMethodGetCoordinate != true
+                        ? MaterialStateProperty.all(Colors.grey.shade800)
+                        : MaterialStateProperty.all(Colors.green),
+                    'get coordinate'),
+                const Divider(
+                  height: 50,
+                  thickness: 5,
+                  indent: 20,
+                  endIndent: 20,
+                  color: Colors.black45,
+                ),
+                locatePageCard(
+                    SizedBox(
+                      width: 300,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 15),
+                        child: TextField(
+                          onChanged: (value) {
+                            searchAddress = value;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: "Street/Borough/City",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Icons.zoom_in,
-                  locateMethodSpecifyPlace != true
-                      ? MaterialStateProperty.all(Colors.grey.shade800)
-                      : MaterialStateProperty.all(Colors.green),
-                  'specify place'),
-              SizedBox(height: 24),
-              // Text(
-              //   shakeCount.toString(),
-              //   style: TextStyle(fontSize: 24),
-              // ),
-              SizedBox(height: 24),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     MapsLauncher.launchCoordinates(lat, long);
-              //   },
-              //   child: const Text('View on map'),
-              // ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 100,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              Colors.blue.withOpacity(0.5),
+                    Icons.zoom_in,
+                    locateMethodSpecifyPlace != true
+                        ? MaterialStateProperty.all(Colors.grey.shade800)
+                        : searchAddress.isEmpty
+                            ? MaterialStateProperty.all(Colors.grey.shade800)
+                            : MaterialStateProperty.all(Colors.green),
+                    'specify place'),
+                SizedBox(height: 24),
+                // Text(
+                //   shakeCount.toString(),
+                //   style: TextStyle(fontSize: 24),
+                // ),
+                SizedBox(height: 24),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     MapsLauncher.launchCoordinates(lat, long);
+                //   },
+                //   child: const Text('View on map'),
+                // ),
+              ],
             ),
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => drawResultPage(),
+        ),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.blue.withOpacity(0.5),
               ),
-            );
-          },
-          child: Text(
-            'Find ',
-            style: TextStyle(fontSize: 30),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  //builder: (context) => drawResultPage(),
+                  builder: (context) => drawResultPage(),
+                ),
+              );
+            },
+            child: Text(
+              'Find ',
+              style: TextStyle(fontSize: 30),
+            ),
           ),
         ),
       ),
@@ -189,10 +203,11 @@ class locatePageState extends State<locatePage> {
                             locateMethodGetCoordinate = true;
                             locateMethodSpecifyPlace = false;
                           });
-                          //_getSearchCoordinate();
+                          getCoordinate();
                           print('get coordinate works');
                         } else {
                           setState(() {
+                            FocusManager.instance.primaryFocus?.unfocus();
                             locateMethodGetCoordinate = false;
                             locateMethodSpecifyPlace = true;
                             print(searchAddress);
@@ -241,7 +256,7 @@ class locatePageState extends State<locatePage> {
   //   setState(() {});
   // }
 
-  void getCoordinate() async {
+  Future<void> getCoordinate() async {
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
       return Future.error('Location permissions are denied');
@@ -251,13 +266,15 @@ class locatePageState extends State<locatePage> {
     lat = position.latitude;
     long = position.longitude;
     print('latitude is:$lat longitude:$long');
+    print(lat);
+    print(long);
   }
 
   Future<void> _fetchCoord() async {
     //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
     String API_URL =
         'https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress.replaceAll(RegExp(' '), "+")}&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-
+    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.421998333333335%2C-122.084&radius=200&type=dissert&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
     final response = await http.get(Uri.parse(API_URL));
     final data = json.decode(response.body);
     lat = data["results"][0]['geometry']['location']['lat'];
@@ -266,6 +283,8 @@ class locatePageState extends State<locatePage> {
     setState(() {
       print(response);
       print(data);
+      print(lat);
+      print(long);
     });
   }
 }
