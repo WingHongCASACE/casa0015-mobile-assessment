@@ -242,20 +242,6 @@ class locatePageState extends State<locatePage> {
     );
   }
 
-  // _getSearchCoordinate() async {
-  //   GeoCode geoCode = GeoCode();
-  //   try {
-  //     Coordinates coordinates =
-  //         await geoCode.forwardGeocoding(address: searchAddress);
-  //     print("Latitude: ${coordinates.latitude}");
-  //     print("Longitude: ${coordinates.longitude}");
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //
-  //   setState(() {});
-  // }
-
   Future<void> getCoordinate() async {
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
