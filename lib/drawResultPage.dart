@@ -1,12 +1,16 @@
-import 'dart:convert';
 import 'dart:math';
 
 //import 'package:geolocator/geolocator.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import 'aboutPage.dart';
 import 'locatePage.dart';
+
+final _auth = FirebaseAuth.instance;
 
 class drawResultPage extends StatefulWidget {
   @override
@@ -16,34 +20,42 @@ class drawResultPage extends StatefulWidget {
 class _drawResultPageState extends State<drawResultPage> {
   // The list that contains information about photos
   //List _loadedPhotos = [];
-  late String aName;
-  late String aVenue;
-  late int aPrice;
-  late double aRating;
+  // String aName ='';
+  // String aVenue ='';
+  // int aPrice =0;
+  // double aRating =0.0;
+  String aName = locatePageState.aName;
+  String aVenue = locatePageState.aVenue;
+  num aPrice = locatePageState.aPrice;
+  num aRating = locatePageState.aRating;
   double lat = locatePageState.lat;
   double long = locatePageState.long;
   bool loading = true;
-  late final data;
+  final data = locatePageState.data;
+  bool loadingSpin = false;
+  String errorMsg = '';
+  late String email;
+  late String password;
 
   // The function that fetches data from the API
-  Future<void> _fetchData() async {
-    //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
-    String API_URL =
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.4219%2C-122.084&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.86605%2C151.1957362&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    final response = await http.get(Uri.parse(API_URL));
-    data = json.decode(response.body);
-    print(response);
-    print(data);
-    final datadraw = data["results"][Random().nextInt(data.length)];
-    aName = datadraw["name"];
-    print(aName);
-    aVenue = datadraw["vicinity"];
-    aPrice = datadraw["price_level"];
-    aPrice = datadraw["price_level"];
-    aRating = datadraw["rating"];
-  }
+  // Future<void> _fetchData() async {
+  //   //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
+  //   String API_URL =
+  //       'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
+  //   //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.4219%2C-122.084&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
+  //   //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.86605%2C151.1957362&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
+  //   final response = await http.get(Uri.parse(API_URL));
+  //   data = json.decode(response.body);
+  //   print(response);
+  //   print(data);
+  //   final datadraw = data["results"][Random().nextInt(data.length)];
+  //   aName = datadraw["name"];
+  //   print(aName);
+  //   aVenue = datadraw["vicinity"];
+  //   aPrice = datadraw["price_level"];
+  //   aPrice = datadraw["price_level"];
+  //   aRating = datadraw["rating"];
+  // }
 
   Future<void> datadrawnew() async {
     final datadraw = data["results"][Random().nextInt(data.length)];
@@ -69,11 +81,29 @@ class _drawResultPageState extends State<drawResultPage> {
   //TODO add transition to allow loading
   void initState() {
     super.initState();
-    aName = '';
-    aVenue = '';
-    aPrice = 0;
-    aRating = 0.0;
-    _fetchData();
+    //_fetchData();
+
+    setState(() {
+      loading = false;
+      aName = '';
+    });
+
+    try {
+      setState(() async {
+        await datadrawnew();
+        await Future.delayed(Duration(seconds: 2));
+        if (aName != '') {
+          setState(() {
+            cuisineSupport.genNum();
+            loading = true;
+            print(cuisineSupport.randomNum);
+            print(cuisineSupport._cuisine[cuisineSupport.randomNum].cuisineIMG);
+          });
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
   }
   //bool isShake = true;
   // Do stuff on phone shake
@@ -81,285 +111,691 @@ class _drawResultPageState extends State<drawResultPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          title: Text(''),
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          iconTheme: IconThemeData(size: 30),
-          elevation: 0,
-        ),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter:
-                  ColorFilter.mode(Colors.white54, BlendMode.colorDodge),
-              image: AssetImage(
-                  'images/bistro-gfe17ee854_1280-drawResultPage-background.jpg'),
-              fit: BoxFit.cover,
-            ),
+      child: WillPopScope(
+        onWillPop: () async {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => locatePage()));
+          return true;
+        },
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            title: Text(''),
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black,
+            iconTheme: IconThemeData(size: 30),
+            elevation: 0,
           ),
-          padding: EdgeInsets.only(top: 30, left: 10, right: 10),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  loading
-                      ? Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0, top: 12.0),
-                              child: Stack(children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 730,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(cuisineSupport
-                                          ._cuisine[cuisineSupport.randomNum]
-                                          .cuisineIMG),
-                                      fit: BoxFit.cover,
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                colorFilter:
+                    ColorFilter.mode(Colors.white54, BlendMode.colorDodge),
+                image: AssetImage(
+                    'images/bistro-gfe17ee854_1280-drawResultPage-background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    loading
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0, top: 12.0),
+                                child: Stack(children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 710,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(cuisineSupport
+                                            ._cuisine[cuisineSupport.randomNum]
+                                            .cuisineIMG),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(50),
+                                          bottom: Radius.zero),
                                     ),
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(50),
-                                        bottom: Radius.zero),
                                   ),
-                                ),
-                                Container(
-                                  padding: EdgeInsetsDirectional.only(
-                                      top: 680, end: 5),
-                                  alignment: Alignment.bottomRight,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.transparent),
-                                        side: MaterialStateProperty.all(
-                                          BorderSide(
-                                            color: Colors.white,
-                                            width: 1,
+                                  Container(
+                                    padding: EdgeInsetsDirectional.only(
+                                        top: 660, end: 5),
+                                    alignment: Alignment.bottomRight,
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.transparent),
+                                          side: MaterialStateProperty.all(
+                                            BorderSide(
+                                              color: Colors.white,
+                                              width: 1,
+                                            ),
+                                          )),
+                                      onPressed: () {
+                                        print('${lat},${long}');
+                                        MapsLauncher.launchCoordinates(
+                                            lat, long);
+                                      },
+                                      child: (Wrap(
+                                        children: [
+                                          Text(
+                                            'Show location',
                                           ),
-                                        )),
-                                    onPressed: () {
-                                      print('${lat},${long}');
-                                      MapsLauncher.launchCoordinates(lat, long);
-                                    },
-                                    child: (Wrap(
-                                      children: [
-                                        Text(
-                                          'Show location',
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Icon(
-                                          Icons.map,
-                                          size: 20,
-                                        ),
-                                      ],
-                                    )),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsetsDirectional.only(
-                                      top: 690, start: 5),
-                                  child: Text(
-                                    '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(
+                                            Icons.map,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      )),
                                     ),
                                   ),
-                                ),
-                              ]),
-                              // child: Image.asset(cuisineSupport
-                              //     ._cuisine[cuisineSupport.randomNum].cuisineIMG),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.orangeAccent[200],
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.zero,
-                                        bottom: Radius.circular(50))),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: restaurantCard(
-                                      //cuisineSupport: cuisineSupport,
-                                      aName: aName,
-                                      aPrice: aPrice,
-                                      aRating: aRating,
-                                      aVenue: aVenue),
-                                ),
+                                  Container(
+                                    padding: EdgeInsetsDirectional.only(
+                                        top: 670, start: 5),
+                                    child: Text(
+                                      '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                                // child: Image.asset(cuisineSupport
+                                //     ._cuisine[cuisineSupport.randomNum].cuisineIMG),
                               ),
-                            ),
-                            //),
-                          ],
-                        )
-                      : Padding(
-                          padding:
-                              EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.8),
-                              backgroundBlendMode: BlendMode.hardLight,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(height: 250),
-                                Center(
-                                  child: SizedBox(
-                                    width: 80,
-                                    height: 80,
-                                    child: const CircularProgressIndicator(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.orangeAccent[200],
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.zero,
+                                          bottom: Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: restaurantCard(
+                                        //cuisineSupport: cuisineSupport,
+                                        aName: aName,
+                                        aPrice: aPrice,
+                                        aRating: aRating,
+                                        aVenue: aVenue),
                                   ),
                                 ),
-                                SizedBox(height: 200),
-                                Text(
-                                  '${foodQuote._foodquote[foodQuote.randomNum].quote}',
-                                  style: TextStyle(fontSize: 20),
+                              ),
+                              //),
+                            ],
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 12.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.8),
+                                backgroundBlendMode: BlendMode.hardLight,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
                                 ),
-                                Text(
-                                  '\n-${foodQuote._foodquote[foodQuote.randomNum].quoteFrom}',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                SizedBox(height: 250),
-                              ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(height: 250),
+                                  Center(
+                                    child: SizedBox(
+                                      width: 80,
+                                      height: 80,
+                                      child: const CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 200),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: DefaultTextStyle(
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                          ),
+                                          child: AnimatedTextKit(
+                                            animatedTexts: [
+                                              FadeAnimatedText(
+                                                  '${foodQuote._foodquote[foodQuote.randomNum].quote}'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      DefaultTextStyle(
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                        ),
+                                        child: AnimatedTextKit(
+                                          animatedTexts: [
+                                            TyperAnimatedText(
+                                              '\n-${foodQuote._foodquote[foodQuote.randomNum].quoteFrom}',
+                                              speed: Duration(milliseconds: 40),
+                                            ),
+                                          ],
+                                          isRepeatingAnimation: false,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 250),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: Container(
-          height: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.redAccent.withOpacity(0.6),
-                    ),
-                  ),
-                  onPressed: () async {
-                    setState(() {
-                      loading = false;
-                      aName = '';
-                    });
-                    try {
-                      await datadrawnew();
-                      await Future.delayed(Duration(seconds: 2));
-                      if (aName != '') {
-                        setState(() {
-                          cuisineSupport.genNum();
-                          loading = true;
-                          print(cuisineSupport.randomNum);
-                          print(cuisineSupport
-                              ._cuisine[cuisineSupport.randomNum].cuisineIMG);
-                        });
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  // onPressed: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       //builder: (context) => drawResultPage(),
-                  //       builder: (context) => drawResultPage(),
-                  //     ),
-                  //   );
-                  // },
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.swap_horiz,
-                          size: 40,
+          drawer: ModalProgressHUD(
+            inAsyncCall: loadingSpin,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Drawer(
+                // Add a ListView to the drawer. This ensures the user can scroll
+                // through the options in the drawer if there isn't enough vertical
+                // space to fit everything.
+                child: ListView(
+                  // Important: Remove any padding from the ListView.
+                  padding: EdgeInsets.zero,
+                  children: [
+                    UserAccountsDrawerHeader(
+                      decoration: BoxDecoration(
+                          color: _auth.currentUser != null
+                              ? Colors.lightGreen[800]
+                              : Colors.purple),
+                      accountName: Text(
+                        "",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          'Draw Again',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ]),
-                ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.yellow.withOpacity(0.6),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(
-                      context,
-                    );
-                  },
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.find_replace,
-                          size: 40,
-                        ),
-                        Text(
-                          'Change Location',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ]),
-                ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green.withOpacity(0.6),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        //builder: (context) => drawResultPage(),
-                        builder: (context) => locatePage(),
                       ),
-                    );
-                  },
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 40,
+                      accountEmail: Container(
+                        padding: _auth.currentUser != null
+                            ? EdgeInsets.symmetric(horizontal: 60)
+                            : EdgeInsets.only(left: 100),
+                        child: Text(
+                          _auth.currentUser != null
+                              ? '${_auth.currentUser?.email}'
+                              : 'guest',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        Text(
-                          'Reserve',
-                          style: TextStyle(fontSize: 15),
+                      ),
+                      currentAccountPicture: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 70),
+                        child: Icon(
+                          Icons.account_circle_rounded,
+                          size: 94,
+                          color: _auth.currentUser != null
+                              ? Colors.green[300]
+                              : Colors.grey,
                         ),
-                      ]),
+                      ),
+                    ),
+                    // const DrawerHeader(
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.blue,
+                    //   ),
+                    //   child: Text('Drawer Header'),
+                    // ),
+                    Visibility(
+                      visible: _auth.currentUser != null ? false : true,
+                      child: ListTile(
+                        title: const Text('Sign in'),
+                        onTap: () {
+                          errorMsg = '';
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    contentPadding: EdgeInsets.all(10),
+                                    // title: Text("Sign in"),
+                                    content: StatefulBuilder(
+                                      builder: (context, setState) => SizedBox(
+                                        height: 270,
+                                        child: Column(
+                                          children: [
+                                            Text('Sign in'),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            TextField(
+                                              onChanged: (value) {
+                                                email = value;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              decoration: InputDecoration(
+                                                hintText: "Email address",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            TextField(
+                                              obscureText: true,
+                                              onChanged: (value) {
+                                                password = value;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: "Password",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              errorMsg,
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    loadingSpin = true;
+                                                  });
+                                                  try {
+                                                    final newUser = await _auth
+                                                        .signInWithEmailAndPassword(
+                                                            email: email.trim(),
+                                                            password: password
+                                                                .trim());
+                                                    if (newUser != 'null') {
+                                                      print("logined");
+                                                      setState(() {
+                                                        loadingSpin = false;
+                                                      });
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  super
+                                                                      .widget));
+                                                      Navigator.pop(context);
+                                                    }
+                                                  } catch (e) {
+                                                    loadingSpin = false;
+                                                    //Navigator.pop(context);
+                                                    setState(() {
+                                                      errorMsg =
+                                                          'Invalid email or password !';
+                                                    });
+                                                    print(e);
+                                                  }
+                                                  // if (_auth.currentUser?.email ==
+                                                  //     'null') {
+                                                  //   setState(() {
+                                                  //     print("failed");
+                                                  //     loadingSpin = false;
+                                                  //     showDialog(
+                                                  //       context: context,
+                                                  //       builder: (ctx) => AlertDialog(
+                                                  //           title: Text("Error"),
+                                                  //           content: Text(
+                                                  //               'Log in failed')),
+                                                  //     );
+                                                  //   });
+                                                  // }
+
+                                                  print(email);
+                                                  print(password);
+                                                  print(
+                                                      _auth.currentUser?.email);
+                                                },
+                                                child: Text('Sign in'))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // actions: [],
+                                  ));
+                          // Update the state of the app
+                          // ...
+                          // Then close the drawer
+                          //Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: _auth.currentUser != null ? false : true,
+                      child: ListTile(
+                        title: const Text('Create account'),
+                        onTap: () {
+                          errorMsg = '';
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    contentPadding: EdgeInsets.all(10),
+                                    content: StatefulBuilder(
+                                      builder: (context, setState) => SizedBox(
+                                        height: 270,
+                                        child: Column(
+                                          children: [
+                                            Text("Register"),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            TextField(
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              onChanged: (value) {
+                                                email = value;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: "Email address",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            TextField(
+                                              obscureText: true,
+                                              onChanged: (value) {
+                                                password = value;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText:
+                                                    "Password (minimum 6 characters)",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              errorMsg,
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    loadingSpin = true;
+                                                  });
+                                                  try {
+                                                    final newUser = await _auth
+                                                        .createUserWithEmailAndPassword(
+                                                            email: email.trim(),
+                                                            password: password
+                                                                .trim());
+                                                    if (newUser != 'null') {
+                                                      print("Account created");
+                                                      setState(() {
+                                                        loadingSpin = false;
+                                                      });
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  super
+                                                                      .widget));
+                                                      Navigator.pop(context);
+                                                    }
+                                                  } catch (e) {
+                                                    loadingSpin = false;
+                                                    //Navigator.pop(context);
+                                                    setState(() {
+                                                      errorMsg =
+                                                          'Invalid email or password !';
+                                                    });
+                                                    print(e);
+                                                  }
+                                                  // if (_auth.currentUser?.email ==
+                                                  //     'null') {
+                                                  //   setState(() {
+                                                  //     print("failed");
+                                                  //     loadingSpin = false;
+                                                  //     showDialog(
+                                                  //       context: context,
+                                                  //       builder: (ctx) => AlertDialog(
+                                                  //           title: Text("Error"),
+                                                  //           content: Text(
+                                                  //               'Log in failed')),
+                                                  //     );
+                                                  //   });
+                                                  // }
+
+                                                  print(email);
+                                                  print(password);
+                                                  print(
+                                                      _auth.currentUser?.email);
+                                                },
+                                                child: Text('Register'))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // actions: [],
+                                  ));
+                          // Update the state of the app
+                          // ...
+                          // Then close the drawer
+                          // Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Reservation records'),
+                      enabled: (_auth.currentUser != null) ? true : false,
+                      onTap: () {
+                        // Update the state of the app
+                        // ...
+                        // Then close the drawer
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('About'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => aboutPage()),
+                        );
+                      },
+                    ),
+                    Visibility(
+                      visible: _auth.currentUser != null ? true : false,
+                      child: ListTile(
+                        title: const Text('Sign out'),
+                        onTap: () {
+                          // Update the state of the app
+                          // ...
+                          // Then close the drawer
+                          _auth.signOut();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      super.widget));
+                          print('signed out');
+                          print(_auth.authStateChanges());
+
+                          //Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
+          ),
+          bottomNavigationBar: Container(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.redAccent.withOpacity(0.6),
+                      ),
+                    ),
+                    onPressed: () async {
+                      setState(() {
+                        loading = false;
+                        aName = '';
+                      });
+                      try {
+                        await datadrawnew();
+                        await Future.delayed(Duration(seconds: 2));
+                        if (aName != '') {
+                          setState(() {
+                            cuisineSupport.genNum();
+                            loading = true;
+                            foodQuote.genNum();
+                            print(cuisineSupport.randomNum);
+                            print(cuisineSupport
+                                ._cuisine[cuisineSupport.randomNum].cuisineIMG);
+                          });
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                    // onPressed: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       //builder: (context) => drawResultPage(),
+                    //       builder: (context) => drawResultPage(),
+                    //     ),
+                    //   );
+                    // },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.swap_horiz,
+                            size: 40,
+                          ),
+                          Text(
+                            'Draw Again',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ]),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.yellow.withOpacity(0.6),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => locatePage(),
+                        ),
+                      );
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.find_replace,
+                            size: 40,
+                          ),
+                          Text(
+                            'Change Location',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ]),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.green.withOpacity(0.6),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          //builder: (context) => drawResultPage(),
+                          builder: (context) => locatePage(),
+                        ),
+                      );
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 40,
+                          ),
+                          Text(
+                            'Reserve',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ]),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -378,8 +814,8 @@ class restaurantCard extends StatelessWidget {
 
   //final CuisineSupport cuisineSupport;
   final String aName;
-  final int aPrice;
-  final double aRating;
+  final num aPrice;
+  final num aRating;
   final String aVenue;
 
   @override
