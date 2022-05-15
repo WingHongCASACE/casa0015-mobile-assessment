@@ -41,6 +41,7 @@ class locatePageState extends State<locatePage> {
   String errorMsg = '';
   late String email;
   late String password;
+  late String name;
   bool specifyPlacePress = false;
 
   void getLat() {
@@ -49,11 +50,22 @@ class locatePageState extends State<locatePage> {
 
   void initState() {
     super.initState();
-    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () async {
       setState(() {
         print('I\'m shaking');
         shakeCount++;
       });
+      {
+        await _fetchData();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => drawResultPage(),
+          ),
+        );
+      }
+      if (shakeCount != 0 &&
+          (locateMethodGetCoordinate || locateMethodSpecifyPlace)) {}
       //bool isShake = true;
       // Do stuff on phone shake
     });
@@ -364,12 +376,29 @@ class locatePageState extends State<locatePage> {
                                     contentPadding: EdgeInsets.all(10),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270,
+                                        height: 350,
                                         child: Column(
                                           children: [
                                             Text("Register"),
                                             SizedBox(
                                               height: 20,
+                                            ),
+                                            TextField(
+                                              onChanged: (value) {
+                                                name = value;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: "User name",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
                                             ),
                                             TextField(
                                               keyboardType:
@@ -597,7 +626,7 @@ class locatePageState extends State<locatePage> {
         borderRadius: BorderRadius.all(
           Radius.circular(15),
         ),
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.8),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

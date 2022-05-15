@@ -9,23 +9,24 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'aboutPage.dart';
 import 'locatePage.dart';
+import 'reserveFormPage.dart';
 
 final _auth = FirebaseAuth.instance;
 
 class drawResultPage extends StatefulWidget {
   @override
-  _drawResultPageState createState() => _drawResultPageState();
+  drawResultPageState createState() => drawResultPageState();
 }
 
-class _drawResultPageState extends State<drawResultPage> {
+class drawResultPageState extends State<drawResultPage> {
   // The list that contains information about photos
   //List _loadedPhotos = [];
   // String aName ='';
   // String aVenue ='';
   // int aPrice =0;
   // double aRating =0.0;
-  String aName = locatePageState.aName;
-  String aVenue = locatePageState.aVenue;
+  static String aName = locatePageState.aName;
+  static String aVenue = locatePageState.aVenue;
   num aPrice = locatePageState.aPrice;
   num aRating = locatePageState.aRating;
   double lat = locatePageState.lat;
@@ -36,6 +37,7 @@ class _drawResultPageState extends State<drawResultPage> {
   String errorMsg = '';
   late String email;
   late String password;
+  late String name;
 
   // The function that fetches data from the API
   // Future<void> _fetchData() async {
@@ -509,12 +511,29 @@ class _drawResultPageState extends State<drawResultPage> {
                                     contentPadding: EdgeInsets.all(10),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270,
+                                        height: 350,
                                         child: Column(
                                           children: [
                                             Text("Register"),
                                             SizedBox(
                                               height: 20,
+                                            ),
+                                            TextField(
+                                              onChanged: (value) {
+                                                name = value;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: "User name",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
                                             ),
                                             TextField(
                                               keyboardType:
@@ -776,7 +795,7 @@ class _drawResultPageState extends State<drawResultPage> {
                         context,
                         MaterialPageRoute(
                           //builder: (context) => drawResultPage(),
-                          builder: (context) => locatePage(),
+                          builder: (context) => reserveFormPage(),
                         ),
                       );
                     },

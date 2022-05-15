@@ -20,6 +20,7 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   late String email;
   late String password;
+  late String name;
   bool loadingSpin = false;
   String errorMsg = '';
   DateTime firstBackPress = DateTime.now();
@@ -386,12 +387,28 @@ class _homePageState extends State<homePage> {
                                   contentPadding: EdgeInsets.all(10),
                                   content: StatefulBuilder(
                                     builder: (context, setState) => SizedBox(
-                                      height: 270,
+                                      height: 350,
                                       child: Column(
                                         children: [
                                           Text("Register"),
                                           SizedBox(
                                             height: 20,
+                                          ),
+                                          TextField(
+                                            onChanged: (value) {
+                                              name = value;
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText: "User name",
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(15),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextField(
                                             keyboardType:
@@ -449,7 +466,12 @@ class _homePageState extends State<homePage> {
                                                           email: email.trim(),
                                                           password:
                                                               password.trim());
-                                                  if (newUser != 'null') {
+                                                  newUser.user
+                                                      ?.updateDisplayName(name);
+                                                  if (newUser != 'null' &&
+                                                      newUser.user
+                                                              ?.displayName !=
+                                                          'null') {
                                                     print("Account created");
                                                     setState(() {
                                                       loadingSpin = false;
