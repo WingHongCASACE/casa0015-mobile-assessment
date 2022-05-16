@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:ucfnwho_assignment/locatePage.dart';
+import 'package:ucfnwho_assignment/reserveRecord.dart';
 
 import 'aboutPage.dart';
 import 'locatePage.dart';
@@ -534,6 +535,11 @@ class _homePageState extends State<homePage> {
                       // ...
                       // Then close the drawer
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => reserveRecord()),
+                      );
                     },
                   ),
                   ListTile(

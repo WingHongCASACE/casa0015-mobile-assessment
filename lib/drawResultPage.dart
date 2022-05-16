@@ -10,6 +10,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'aboutPage.dart';
 import 'locatePage.dart';
 import 'reserveFormPage.dart';
+import 'reserveRecord.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -658,6 +659,11 @@ class drawResultPageState extends State<drawResultPage> {
                         // ...
                         // Then close the drawer
                         Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => reserveRecord()),
+                        );
                       },
                     ),
                     ListTile(

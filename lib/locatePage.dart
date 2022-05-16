@@ -14,6 +14,7 @@ import 'package:ucfnwho_assignment/homePage.dart';
 import 'aboutPage.dart';
 import 'drawResultPage.dart';
 import 'homePage.dart';
+import 'reserveRecord.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -523,6 +524,11 @@ class locatePageState extends State<locatePage> {
                         // ...
                         // Then close the drawer
                         Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => reserveRecord()),
+                        );
                       },
                     ),
                     ListTile(
