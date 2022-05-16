@@ -5,6 +5,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -112,8 +113,8 @@ class locatePageState extends State<locatePage> {
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 100.0,
-                left: 30.0,
-                right: 30.0,
+                left: 20.0,
+                right: 20.0,
                 bottom: 8.0,
               ),
               child: Column(
@@ -136,19 +137,19 @@ class locatePageState extends State<locatePage> {
                   ),
                   locatePageCard(
                       SizedBox(
-                        width: 300,
+                        width: 350.w,
                         child: Container(
-                          padding: EdgeInsets.only(left: 15),
+                          padding: EdgeInsets.only(left: 10),
                           child: TextField(
                             onChanged: (value) {
                               searchAddress = value;
                             },
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: "Street/Borough/City",
+                              hintText: "e.g., Street/Borough/City",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
+                                  Radius.circular(20),
                                 ),
                               ),
                             ),
@@ -162,12 +163,12 @@ class locatePageState extends State<locatePage> {
                               ? MaterialStateProperty.all(Colors.grey.shade800)
                               : MaterialStateProperty.all(Colors.green),
                       'specify place'),
-                  SizedBox(height: 24),
+                  SizedBox(height: 24.h),
                   // Text(
                   //   shakeCount.toString(),
                   //   style: TextStyle(fontSize: 24),
                   // ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 24.h),
                   // ElevatedButton(
                   //   onPressed: () {
                   //     MapsLauncher.launchCoordinates(lat, long);
@@ -244,12 +245,12 @@ class locatePageState extends State<locatePage> {
                                     // title: Text("Sign in"),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270,
+                                        height: 270.h,
                                         child: Column(
                                           children: [
                                             Text('Sign in'),
                                             SizedBox(
-                                              height: 20,
+                                              height: 20.h,
                                             ),
                                             TextField(
                                               onChanged: (value) {
@@ -268,7 +269,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 15.h,
                                             ),
                                             TextField(
                                               obscureText: true,
@@ -286,7 +287,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             Text(
                                               errorMsg,
@@ -295,7 +296,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
@@ -377,12 +378,12 @@ class locatePageState extends State<locatePage> {
                                     contentPadding: EdgeInsets.all(10),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 350,
+                                        height: 350.h,
                                         child: Column(
                                           children: [
                                             Text("Register"),
                                             SizedBox(
-                                              height: 20,
+                                              height: 20.h,
                                             ),
                                             TextField(
                                               onChanged: (value) {
@@ -399,7 +400,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             TextField(
                                               keyboardType:
@@ -418,7 +419,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 15.h,
                                             ),
                                             TextField(
                                               obscureText: true,
@@ -437,7 +438,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             Text(
                                               errorMsg,
@@ -446,7 +447,7 @@ class locatePageState extends State<locatePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
@@ -572,10 +573,10 @@ class locatePageState extends State<locatePage> {
                       locateMethodGetCoordinate == true
                   ? Colors.blue.withOpacity(0.7)
                   : Colors.grey.shade800,
-              height: 100,
+              height: 100.h,
               child: SizedBox(
                 child: DefaultTextStyle(
-                  style: TextStyle(fontSize: 30.0),
+                  style: TextStyle(fontSize: 30.sp),
                   child: AnimatedTextKit(
                     onTap: () async {
                       if (locateMethodSpecifyPlace == true ||
@@ -627,7 +628,8 @@ class locatePageState extends State<locatePage> {
   Container locatePageCard(cardLeft, cardIcon, iconColorState, cardIconText) {
     return Container(
       alignment: Alignment.center,
-      height: 150,
+      height: 200.h,
+      width: 700.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(15),
@@ -652,8 +654,8 @@ class locatePageState extends State<locatePage> {
                 Expanded(
                   flex: 3,
                   child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    width: 140,
+                    padding: const EdgeInsets.all(4.0),
+                    width: 220.w,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: iconColorState,
@@ -698,9 +700,12 @@ class locatePageState extends State<locatePage> {
                         children: [
                           Icon(
                             cardIcon,
-                            size: 48,
+                            size: 48.sp,
                           ),
-                          Text(cardIconText),
+                          Text(
+                            cardIconText,
+                            style: TextStyle(fontSize: 20.sp),
+                          ),
                         ],
                       ),
                     ),

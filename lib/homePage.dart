@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:ucfnwho_assignment/locatePage.dart';
 import 'package:ucfnwho_assignment/reserveRecord.dart';
@@ -55,10 +56,10 @@ class _homePageState extends State<homePage> {
         if (exitApp) {
           final snack = SnackBar(
             content: Container(
-              height: 40,
+              height: 40.h,
               child: Text(
                 'Press Back button again to Exit',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20.sp),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -96,8 +97,11 @@ class _homePageState extends State<homePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 680.h,
+                  ),
                   child: DefaultTextStyle(
-                    style: TextStyle(fontSize: 60, color: Colors.white),
+                    style: TextStyle(fontSize: 80.sp, color: Colors.white),
                     child: AnimatedTextKit(
                       animatedTexts: [WavyAnimatedText('Wohin Essen?')],
                     ),
@@ -108,17 +112,17 @@ class _homePageState extends State<homePage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 30.sp,
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 100.h,
                 ),
                 Column(
                   children: [
                     SizedBox(
-                      height: 50,
-                      width: 200,
+                      height: 100.h,
+                      width: 300.w,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -135,16 +139,16 @@ class _homePageState extends State<homePage> {
                         },
                         child: Text(
                           'Start',
-                          style: TextStyle(fontSize: 30),
+                          style: TextStyle(fontSize: 50.sp),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30.h,
                     ),
                     SizedBox(
-                      height: 50,
-                      width: 200,
+                      height: 100.h,
+                      width: 300.w,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -157,16 +161,16 @@ class _homePageState extends State<homePage> {
                         },
                         child: Text(
                           'Log in/ Register',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 30.sp),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30.h,
                     ),
                     SizedBox(
-                      height: 50,
-                      width: 200,
+                      height: 100.h,
+                      width: 300.w,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -183,7 +187,7 @@ class _homePageState extends State<homePage> {
                         },
                         child: Text(
                           'About',
-                          style: TextStyle(fontSize: 30),
+                          style: TextStyle(fontSize: 50.sp),
                         ),
                       ),
                     ),

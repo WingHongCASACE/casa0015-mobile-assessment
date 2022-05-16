@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -155,8 +156,11 @@ class drawResultPageState extends State<drawResultPage> {
                                     left: 8.0, right: 8.0, top: 12.0),
                                 child: Stack(children: [
                                   Container(
+                                    constraints: BoxConstraints(
+                                      maxHeight: 1050.h,
+                                    ),
                                     alignment: Alignment.center,
-                                    height: 710,
+                                    //height: 710,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(cuisineSupport
@@ -169,53 +173,61 @@ class drawResultPageState extends State<drawResultPage> {
                                           bottom: Radius.zero),
                                     ),
                                   ),
-                                  Container(
-                                    padding: EdgeInsetsDirectional.only(
-                                        top: 660, end: 5),
-                                    alignment: Alignment.bottomRight,
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.transparent),
-                                          side: MaterialStateProperty.all(
-                                            BorderSide(
-                                              color: Colors.white,
-                                              width: 1,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        maxHeight: 1000.h,
+                                      ),
+                                      // padding: EdgeInsetsDirectional.only(
+                                      //     top: 660, end: 5),
+                                      alignment: Alignment.bottomRight,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent),
+                                            side: MaterialStateProperty.all(
+                                              BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                            )),
+                                        onPressed: () {
+                                          print('${lat},${long}');
+                                          MapsLauncher.launchCoordinates(
+                                              lat, long);
+                                        },
+                                        child: (Wrap(
+                                          children: [
+                                            Text(
+                                              'Show location',
                                             ),
-                                          )),
-                                      onPressed: () {
-                                        print('${lat},${long}');
-                                        MapsLauncher.launchCoordinates(
-                                            lat, long);
-                                      },
-                                      child: (Wrap(
-                                        children: [
-                                          Text(
-                                            'Show location',
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.map,
-                                            size: 20,
-                                          ),
-                                        ],
-                                      )),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsetsDirectional.only(
-                                        top: 670, start: 5),
-                                    child: Text(
-                                      '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            Icon(
+                                              Icons.map,
+                                              size: 20,
+                                            ),
+                                          ],
+                                        )),
                                       ),
                                     ),
                                   ),
+                                  // Container(
+                                  //   height: 600.h,
+                                  //   // padding: EdgeInsetsDirectional.only(
+                                  //   //     top: 670, start: 5),
+                                  //   child: Text(
+                                  //     '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
+                                  //     textAlign: TextAlign.right,
+                                  //     style: TextStyle(
+                                  //       color: Colors.white,
+                                  //       fontSize: 22.sp,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ]),
                                 // child: Image.asset(cuisineSupport
                                 //     ._cuisine[cuisineSupport.randomNum].cuisineIMG),
@@ -224,6 +236,9 @@ class drawResultPageState extends State<drawResultPage> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Container(
+                                  constraints: BoxConstraints(
+                                    maxHeight: 190.h,
+                                  ),
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       color: Colors.orangeAccent[200],
@@ -259,7 +274,7 @@ class drawResultPageState extends State<drawResultPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: 250),
+                                  SizedBox(height: 250.h),
                                   Center(
                                     child: SizedBox(
                                       width: 80,
@@ -267,7 +282,7 @@ class drawResultPageState extends State<drawResultPage> {
                                       child: const CircularProgressIndicator(),
                                     ),
                                   ),
-                                  SizedBox(height: 200),
+                                  SizedBox(height: 200.h),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -303,7 +318,7 @@ class drawResultPageState extends State<drawResultPage> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 250),
+                                  SizedBox(height: 250.h),
                                 ],
                               ),
                             ),
@@ -379,12 +394,12 @@ class drawResultPageState extends State<drawResultPage> {
                                     // title: Text("Sign in"),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270,
+                                        height: 270.h,
                                         child: Column(
                                           children: [
                                             Text('Sign in'),
                                             SizedBox(
-                                              height: 20,
+                                              height: 20.h,
                                             ),
                                             TextField(
                                               onChanged: (value) {
@@ -403,7 +418,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 15.h,
                                             ),
                                             TextField(
                                               obscureText: true,
@@ -421,7 +436,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             Text(
                                               errorMsg,
@@ -430,7 +445,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
@@ -512,12 +527,12 @@ class drawResultPageState extends State<drawResultPage> {
                                     contentPadding: EdgeInsets.all(10),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 350,
+                                        height: 350.h,
                                         child: Column(
                                           children: [
                                             Text("Register"),
                                             SizedBox(
-                                              height: 20,
+                                              height: 20.h,
                                             ),
                                             TextField(
                                               onChanged: (value) {
@@ -534,7 +549,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             TextField(
                                               keyboardType:
@@ -553,7 +568,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 15.h,
                                             ),
                                             TextField(
                                               obscureText: true,
@@ -572,7 +587,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             Text(
                                               errorMsg,
@@ -581,7 +596,7 @@ class drawResultPageState extends State<drawResultPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 10.h,
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
@@ -703,7 +718,7 @@ class drawResultPageState extends State<drawResultPage> {
             ),
           ),
           bottomNavigationBar: Container(
-            height: 100,
+            height: 150.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -751,11 +766,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.swap_horiz,
-                            size: 40,
+                            size: 36.sp,
                           ),
                           Text(
                             'Draw Again',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           ),
                         ]),
                   ),
@@ -780,11 +795,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.find_replace,
-                            size: 40,
+                            size: 36.sp,
                           ),
                           Text(
                             'Change Location',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           ),
                         ]),
                   ),
@@ -810,11 +825,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.calendar_today,
-                            size: 40,
+                            size: 36.sp,
                           ),
                           Text(
                             'Reserve',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15.sp),
                           ),
                         ]),
                   ),
@@ -863,7 +878,7 @@ class restaurantCard extends StatelessWidget {
             '${aName}',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 28.sp,
             ),
           ),
         ),
@@ -873,7 +888,7 @@ class restaurantCard extends StatelessWidget {
             'Price level: ${aPrice.toString()} / 5',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 28.sp,
             ),
           ),
         ),
@@ -883,7 +898,7 @@ class restaurantCard extends StatelessWidget {
             'Rating: ${aRating.toString()} / 5',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 28.sp,
             ),
           ),
         ),
@@ -893,7 +908,7 @@ class restaurantCard extends StatelessWidget {
             '${aVenue}',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 28.sp,
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'homePage.dart';
 
@@ -86,7 +87,7 @@ class _aboutPageState extends State<aboutPage> {
                   children: List<Widget>.generate(_pages.length, (int index) {
                     return AnimatedContainer(
                         duration: Duration(milliseconds: 300),
-                        height: 10,
+                        height: 10.h,
                         width: (index == _currentPage) ? 30 : 10,
                         margin:
                             EdgeInsets.symmetric(horizontal: 5, vertical: 30),
@@ -134,7 +135,7 @@ class _aboutPageState extends State<aboutPage> {
                       "Get Started",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 20.sp,
                       ),
                     ),
                   ),
@@ -160,7 +161,7 @@ class _aboutPageState extends State<aboutPage> {
                 ],
               ),
               SizedBox(
-                height: 50,
+                height: 50.h,
               )
             ],
           ),
@@ -195,7 +196,7 @@ class SliderPage extends StatelessWidget {
           //   width: width * 0.6,
           // ),
           SizedBox(
-            height: 60,
+            height: 50.h,
           ),
           SizedBox(
             // height: 60,
@@ -203,33 +204,35 @@ class SliderPage extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 36.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
-          SizedBox(
-            height: 200,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: Text(
-                description,
-                style: TextStyle(
-                    height: 1.5,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 24,
-                    letterSpacing: 0.7,
-                    color: Colors.white),
-                textAlign: TextAlign.justify,
+          Flexible(
+            child: SizedBox(
+              height: 250.h,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                      height: 2.h,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 34.sp,
+                      letterSpacing: 0.7,
+                      color: Colors.white),
+                  textAlign: TextAlign.justify,
+                ),
               ),
             ),
           ),
           SizedBox(
-            height: 60,
+            height: 40.h,
           ),
         ],
       ),
