@@ -49,28 +49,7 @@ class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        final timeDiff = DateTime.now().difference(firstBackPress);
-        final exitApp = timeDiff >= Duration(seconds: 2);
-        firstBackPress = DateTime.now();
-        if (exitApp) {
-          final snack = SnackBar(
-            content: Container(
-              height: 40.h,
-              child: Text(
-                'Press Back button again to Exit',
-                style: TextStyle(fontSize: 20.sp),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snack);
-          return false;
-        } else {
-          return true;
-        }
-      },
+      onWillPop: () async => false,
       child: Scaffold(
         key: _key,
         extendBodyBehindAppBar: true,
@@ -214,30 +193,43 @@ class _homePageState extends State<homePage> {
                         color: _auth.currentUser != null
                             ? Colors.lightGreen[800]
                             : Colors.purple),
-                    accountName: Text(
-                      "",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    accountEmail: Container(
-                      padding: _auth.currentUser != null
-                          ? EdgeInsets.symmetric(horizontal: 60)
-                          : EdgeInsets.only(left: 100),
+                    accountName: Container(
+                      // padding: _auth.currentUser != null
+                      //     ? EdgeInsets.symmetric(horizontal: 95)
+                      //     : EdgeInsets.only(left: 95),
                       child: Text(
                         _auth.currentUser != null
-                            ? '${_auth.currentUser?.email}'
-                            : 'guest',
+                            ? '${_auth.currentUser?.displayName}'
+                            : 'Guest',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    // Text(
+                    //   "",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    accountEmail: Container(
+                      // padding: _auth.currentUser != null
+                      //     ? EdgeInsets.symmetric(horizontal: 60)
+                      //     : EdgeInsets.only(left: 100),
+                      child: Text(
+                        _auth.currentUser != null
+                            ? '\n${_auth.currentUser?.email}'
+                            : '',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     currentAccountPicture: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 70),
+                      padding: EdgeInsets.symmetric(horizontal: 80),
                       child: Icon(
                         Icons.account_circle_rounded,
-                        size: 94,
+                        size: 110.sp,
                         color: _auth.currentUser != null
                             ? Colors.green[300]
                             : Colors.grey,
@@ -263,12 +255,12 @@ class _homePageState extends State<homePage> {
                                   // title: Text("Sign in"),
                                   content: StatefulBuilder(
                                     builder: (context, setState) => SizedBox(
-                                      height: 270,
+                                      height: 450.h,
                                       child: Column(
                                         children: [
                                           Text('Sign in'),
                                           SizedBox(
-                                            height: 20,
+                                            height: 20.h,
                                           ),
                                           TextField(
                                             onChanged: (value) {
@@ -286,7 +278,7 @@ class _homePageState extends State<homePage> {
                                             ),
                                           ),
                                           SizedBox(
-                                            height: 15,
+                                            height: 15.h,
                                           ),
                                           TextField(
                                             obscureText: true,
@@ -312,7 +304,7 @@ class _homePageState extends State<homePage> {
                                             ),
                                           ),
                                           SizedBox(
-                                            height: 10,
+                                            height: 10.h,
                                           ),
                                           ElevatedButton(
                                               onPressed: () async {

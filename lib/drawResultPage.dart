@@ -345,30 +345,43 @@ class drawResultPageState extends State<drawResultPage> {
                           color: _auth.currentUser != null
                               ? Colors.lightGreen[800]
                               : Colors.purple),
-                      accountName: Text(
-                        "",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      accountEmail: Container(
-                        padding: _auth.currentUser != null
-                            ? EdgeInsets.symmetric(horizontal: 60)
-                            : EdgeInsets.only(left: 100),
+                      accountName: Container(
+                        // padding: _auth.currentUser != null
+                        //     ? EdgeInsets.symmetric(horizontal: 95)
+                        //     : EdgeInsets.only(left: 95),
                         child: Text(
                           _auth.currentUser != null
-                              ? '${_auth.currentUser?.email}'
-                              : 'guest',
+                              ? '${_auth.currentUser?.displayName}'
+                              : 'Guest',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      // Text(
+                      //   "",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      accountEmail: Container(
+                        // padding: _auth.currentUser != null
+                        //     ? EdgeInsets.symmetric(horizontal: 60)
+                        //     : EdgeInsets.only(left: 100),
+                        child: Text(
+                          _auth.currentUser != null
+                              ? '\n${_auth.currentUser?.email}'
+                              : '',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       currentAccountPicture: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 70),
+                        padding: EdgeInsets.symmetric(horizontal: 80),
                         child: Icon(
                           Icons.account_circle_rounded,
-                          size: 94,
+                          size: 110.sp,
                           color: _auth.currentUser != null
                               ? Colors.green[300]
                               : Colors.grey,
@@ -394,7 +407,7 @@ class drawResultPageState extends State<drawResultPage> {
                                     // title: Text("Sign in"),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270.h,
+                                        height: 450.h,
                                         child: Column(
                                           children: [
                                             Text('Sign in'),
@@ -766,11 +779,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.swap_horiz,
-                            size: 36.sp,
+                            size: 40.sp,
                           ),
                           Text(
                             'Draw Again',
-                            style: TextStyle(fontSize: 15.sp),
+                            style: TextStyle(fontSize: 20.sp),
                           ),
                         ]),
                   ),
@@ -795,11 +808,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.find_replace,
-                            size: 36.sp,
+                            size: 40.sp,
                           ),
                           Text(
                             'Change Location',
-                            style: TextStyle(fontSize: 15.sp),
+                            style: TextStyle(fontSize: 20.sp),
                           ),
                         ]),
                   ),
@@ -825,11 +838,11 @@ class drawResultPageState extends State<drawResultPage> {
                         children: [
                           Icon(
                             Icons.calendar_today,
-                            size: 36.sp,
+                            size: 40.sp,
                           ),
                           Text(
                             'Reserve',
-                            style: TextStyle(fontSize: 15.sp),
+                            style: TextStyle(fontSize: 20.sp),
                           ),
                         ]),
                   ),

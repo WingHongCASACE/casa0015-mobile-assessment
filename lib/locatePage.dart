@@ -196,30 +196,43 @@ class locatePageState extends State<locatePage> {
                           color: _auth.currentUser != null
                               ? Colors.lightGreen[800]
                               : Colors.purple),
-                      accountName: Text(
-                        "",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      accountEmail: Container(
-                        padding: _auth.currentUser != null
-                            ? EdgeInsets.symmetric(horizontal: 60)
-                            : EdgeInsets.only(left: 100),
+                      accountName: Container(
+                        // padding: _auth.currentUser != null
+                        //     ? EdgeInsets.symmetric(horizontal: 95)
+                        //     : EdgeInsets.only(left: 95),
                         child: Text(
                           _auth.currentUser != null
-                              ? '${_auth.currentUser?.email}'
-                              : 'guest',
+                              ? '${_auth.currentUser?.displayName}'
+                              : 'Guest',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      // Text(
+                      //   "",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      accountEmail: Container(
+                        // padding: _auth.currentUser != null
+                        //     ? EdgeInsets.symmetric(horizontal: 60)
+                        //     : EdgeInsets.only(left: 100),
+                        child: Text(
+                          _auth.currentUser != null
+                              ? '\n${_auth.currentUser?.email}'
+                              : '',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       currentAccountPicture: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 70),
+                        padding: EdgeInsets.symmetric(horizontal: 80),
                         child: Icon(
                           Icons.account_circle_rounded,
-                          size: 94,
+                          size: 110.sp,
                           color: _auth.currentUser != null
                               ? Colors.green[300]
                               : Colors.grey,
@@ -245,7 +258,7 @@ class locatePageState extends State<locatePage> {
                                     // title: Text("Sign in"),
                                     content: StatefulBuilder(
                                       builder: (context, setState) => SizedBox(
-                                        height: 270.h,
+                                        height: 450.h,
                                         child: Column(
                                           children: [
                                             Text('Sign in'),

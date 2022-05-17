@@ -33,11 +33,12 @@ class _aboutPageState extends State<aboutPage> {
     SliderPage(
         title: "Draw",
         description:
-            "Based on where you are, a dinning place nearby will be suggested to you. Also try shaking the phone!",
+            "Based on where you are or where you will be, a dinning place nearby will be suggested to you. Also try shaking the phone!",
         image: "images/icons8-lottery-100.png"),
     SliderPage(
         title: "Reserve",
-        description: "Sign-in to reserve a table and to view booking history",
+        description:
+            "Sign-in allows you to view booking history. (No sign-in is required for making reservation.)",
         image: "images/icons8-booking-100.png"),
     SliderPage(
         title: "About",
