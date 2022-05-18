@@ -25,9 +25,7 @@ https://user-images.githubusercontent.com/91855312/168933161-46ded0e9-593a-46c1-
 
 
 
-## Using The App
-
-To enjoy the experience of unpredictable meals, simply download the APK file to your phone, install and run it. Its that simple! :smile:    
+## Using The App    
 
 For developer who wants to refine/extend the App, please go to [the master branch: WingHongCASACE/casa0015-mobile-assessment/tree/master](https://github.com/WingHongCASACE/casa0015-mobile-assessment/tree/master) and download the whole folder and manage/ edit it in your preferable IDE. Please also install [Flutter](https://docs.flutter.dev/get-started/install) and an IDE such as [Android Studio](https://developer.android.com/studio/install).
 
