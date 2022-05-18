@@ -9,7 +9,7 @@ date: "17 May 2022"
 -->
 
 ## Link to GitHub Repository
-Wohin Essen - Let the App help you deciding where to eat
+Wohin Essen - Let the App help you deciding where to eat  
 GitHub Repository - [https://github.com/WingHongCASACE/casa0015-mobile-assessment](https://github.com/WingHongCASACE/casa0015-mobile-assessment)
 
 ## Introduction to Application
