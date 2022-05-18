@@ -64,7 +64,6 @@ To set up Firebase in your Flutter App, please refer to [here](https://firebase.
   | maps_launcher | ^2.0.1 | 
   | modal_progress_hud_nsn | ^0.1.0-nullsafety-1 |  
   | shake | ^2.0.0 |  
-  | sensors | ^2.0.3 |
 
 
 ### Copyright <2022 Wing Hong OR>
