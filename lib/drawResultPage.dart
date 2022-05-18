@@ -1,6 +1,5 @@
 import 'dart:math';
 
-//import 'package:geolocator/geolocator.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +20,6 @@ class drawResultPage extends StatefulWidget {
 }
 
 class drawResultPageState extends State<drawResultPage> {
-  // The list that contains information about photos
-  //List _loadedPhotos = [];
-  // String aName ='';
-  // String aVenue ='';
-  // int aPrice =0;
-  // double aRating =0.0;
   static String aName = locatePageState.aName;
   static String aVenue = locatePageState.aVenue;
   num aPrice = locatePageState.aPrice;
@@ -41,26 +34,6 @@ class drawResultPageState extends State<drawResultPage> {
   late String password;
   late String name;
 
-  // The function that fetches data from the API
-  // Future<void> _fetchData() async {
-  //   //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
-  //   String API_URL =
-  //       'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-  //   //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.4219%2C-122.084&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-  //   //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.86605%2C151.1957362&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-  //   final response = await http.get(Uri.parse(API_URL));
-  //   data = json.decode(response.body);
-  //   print(response);
-  //   print(data);
-  //   final datadraw = data["results"][Random().nextInt(data.length)];
-  //   aName = datadraw["name"];
-  //   print(aName);
-  //   aVenue = datadraw["vicinity"];
-  //   aPrice = datadraw["price_level"];
-  //   aPrice = datadraw["price_level"];
-  //   aRating = datadraw["rating"];
-  // }
-
   Future<void> datadrawnew() async {
     final datadraw = data["results"][Random().nextInt(data.length)];
 
@@ -70,13 +43,6 @@ class drawResultPageState extends State<drawResultPage> {
     aPrice = datadraw["price_level"];
     aPrice = datadraw["price_level"];
     aRating = datadraw["rating"];
-
-    //print(datadraw);
-
-    // aName = datadraw["name"];
-    // aVenue = datadraw["vicinity"];
-    // aPrice = datadraw["price_level"];
-    // aRating = datadraw["rating"];
   }
 
   CuisineSupport cuisineSupport = CuisineSupport();
@@ -85,7 +51,6 @@ class drawResultPageState extends State<drawResultPage> {
   //TODO add transition to allow loading
   void initState() {
     super.initState();
-    //_fetchData();
 
     setState(() {
       loading = false;
@@ -109,8 +74,6 @@ class drawResultPageState extends State<drawResultPage> {
       print(e);
     }
   }
-  //bool isShake = true;
-  // Do stuff on phone shake
 
   @override
   Widget build(BuildContext context) {
@@ -215,22 +178,7 @@ class drawResultPageState extends State<drawResultPage> {
                                       ),
                                     ),
                                   ),
-                                  // Container(
-                                  //   height: 600.h,
-                                  //   // padding: EdgeInsetsDirectional.only(
-                                  //   //     top: 670, start: 5),
-                                  //   child: Text(
-                                  //     '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
-                                  //     textAlign: TextAlign.right,
-                                  //     style: TextStyle(
-                                  //       color: Colors.white,
-                                  //       fontSize: 22.sp,
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ]),
-                                // child: Image.asset(cuisineSupport
-                                //     ._cuisine[cuisineSupport.randomNum].cuisineIMG),
                               ),
                               Padding(
                                 padding:
@@ -256,7 +204,6 @@ class drawResultPageState extends State<drawResultPage> {
                                   ),
                                 ),
                               ),
-                              //),
                             ],
                           )
                         : Padding(
@@ -346,9 +293,6 @@ class drawResultPageState extends State<drawResultPage> {
                               ? Colors.lightGreen[800]
                               : Colors.purple),
                       accountName: Container(
-                        // padding: _auth.currentUser != null
-                        //     ? EdgeInsets.symmetric(horizontal: 95)
-                        //     : EdgeInsets.only(left: 95),
                         child: Text(
                           _auth.currentUser != null
                               ? '${_auth.currentUser?.displayName}'
@@ -358,16 +302,7 @@ class drawResultPageState extends State<drawResultPage> {
                           ),
                         ),
                       ),
-                      // Text(
-                      //   "",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
                       accountEmail: Container(
-                        // padding: _auth.currentUser != null
-                        //     ? EdgeInsets.symmetric(horizontal: 60)
-                        //     : EdgeInsets.only(left: 100),
                         child: Text(
                           _auth.currentUser != null
                               ? '\n${_auth.currentUser?.email}'
@@ -388,12 +323,6 @@ class drawResultPageState extends State<drawResultPage> {
                         ),
                       ),
                     ),
-                    // const DrawerHeader(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.blue,
-                    //   ),
-                    //   child: Text('Drawer Header'),
-                    // ),
                     Visibility(
                       visible: _auth.currentUser != null ? false : true,
                       child: ListTile(
@@ -494,21 +423,6 @@ class drawResultPageState extends State<drawResultPage> {
                                                     });
                                                     print(e);
                                                   }
-                                                  // if (_auth.currentUser?.email ==
-                                                  //     'null') {
-                                                  //   setState(() {
-                                                  //     print("failed");
-                                                  //     loadingSpin = false;
-                                                  //     showDialog(
-                                                  //       context: context,
-                                                  //       builder: (ctx) => AlertDialog(
-                                                  //           title: Text("Error"),
-                                                  //           content: Text(
-                                                  //               'Log in failed')),
-                                                  //     );
-                                                  //   });
-                                                  // }
-
                                                   print(email);
                                                   print(password);
                                                   print(
@@ -521,10 +435,6 @@ class drawResultPageState extends State<drawResultPage> {
                                     ),
                                     // actions: [],
                                   ));
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
-                          //Navigator.pop(context);
                         },
                       ),
                     ),
@@ -645,21 +555,6 @@ class drawResultPageState extends State<drawResultPage> {
                                                     });
                                                     print(e);
                                                   }
-                                                  // if (_auth.currentUser?.email ==
-                                                  //     'null') {
-                                                  //   setState(() {
-                                                  //     print("failed");
-                                                  //     loadingSpin = false;
-                                                  //     showDialog(
-                                                  //       context: context,
-                                                  //       builder: (ctx) => AlertDialog(
-                                                  //           title: Text("Error"),
-                                                  //           content: Text(
-                                                  //               'Log in failed')),
-                                                  //     );
-                                                  //   });
-                                                  // }
-
                                                   print(email);
                                                   print(password);
                                                   print(
@@ -672,10 +567,6 @@ class drawResultPageState extends State<drawResultPage> {
                                     ),
                                     // actions: [],
                                   ));
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
-                          // Navigator.pop(context);
                         },
                       ),
                     ),
@@ -709,9 +600,6 @@ class drawResultPageState extends State<drawResultPage> {
                       child: ListTile(
                         title: const Text('Sign out'),
                         onTap: () {
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
                           _auth.signOut();
                           Navigator.pushReplacement(
                               context,
@@ -720,8 +608,6 @@ class drawResultPageState extends State<drawResultPage> {
                                       super.widget));
                           print('signed out');
                           print(_auth.authStateChanges());
-
-                          //Navigator.pop(context);
                         },
                       ),
                     ),
@@ -765,15 +651,6 @@ class drawResultPageState extends State<drawResultPage> {
                         print(e);
                       }
                     },
-                    // onPressed: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       //builder: (context) => drawResultPage(),
-                    //       builder: (context) => drawResultPage(),
-                    //     ),
-                    //   );
-                    // },
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -858,14 +735,12 @@ class drawResultPageState extends State<drawResultPage> {
 
 class restaurantCard extends StatelessWidget {
   restaurantCard({
-    //required this.cuisineSupport,
     required this.aName,
     required this.aPrice,
     required this.aRating,
     required this.aVenue,
   });
 
-  //final CuisineSupport cuisineSupport;
   final String aName;
   final num aPrice;
   final num aRating;
@@ -875,16 +750,6 @@ class restaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Container(
-        //   alignment: Alignment.centerRight,
-        //   child: Text(
-        //     '${cuisineSupport._cuisine[cuisineSupport.randomNum].cuisine}\ cuisine',
-        //     style: TextStyle(
-        //       color: Colors.white,
-        //       fontSize: 22,
-        //     ),
-        //   ),
-        // ),
         Container(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -942,11 +807,6 @@ class CuisineA {
 
 class CuisineSupport {
   int randomNum = 0;
-
-  //final String cuisine;
-  //final String cuisineIMG;
-
-  //CuisineSupport({required this.cuisine, required this.cuisineIMG});
 
   List<CuisineA> _cuisine = [
     CuisineA("Mexican", "images/taco-g68fb49a04_1280-mexican.jpg"),
@@ -1044,177 +904,3 @@ class FoodQuote {
     randomNum = Random().nextInt(_foodquote.length);
   }
 }
-
-// void main() => runApp(MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: TestLocation(),
-//     );
-//   }
-// }
-//
-// class TestLocation extends StatefulWidget {
-//   @override
-//   _TestLocationState createState() => _TestLocationState();
-// }
-//
-// class _TestLocationState extends State<TestLocation> {
-//   //late ShakeDetector detector;
-//   int shakeCount = 0;
-//
-//   @override
-//   double lat = 0;
-//   double long = 0;
-//
-//   List _loadedPhotos = [];
-//   Future<void> _fetchData() async {
-//     const API_URL = 'https://jsonplaceholder.typicode.com/photos';
-//
-//     final response = await http.get(Uri.parse(API_URL));
-//     final data = json.decode(response.body);
-//
-//     setState(() {
-//       _loadedPhotos = data;
-//     });
-//   }
-//   //late Future<Album> futureAlbum;
-//
-//   void initState() {
-//     super.initState();
-//     //futureAlbum = fetchAlbum();
-//     //TODO check if it is needed to create a detector
-//     ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
-//       setState(() {
-//         print('I\'m shaking');
-//         shakeCount++;
-//       });
-//       //bool isShake = true;
-//
-//       // Do stuff on phone shake
-//     });
-//     ;
-//   }
-//
-//   void getCoordinate() async {
-//     LocationPermission permission = await Geolocator.requestPermission();
-//     if (permission == LocationPermission.denied) {
-//       return Future.error('Location permissions are denied');
-//     }
-//     Position position = await Geolocator.getCurrentPosition(
-//         desiredAccuracy: LocationAccuracy.high);
-//     lat = position.latitude;
-//     long = position.longitude;
-//     print('latitude is:$lat longitude:$long');
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//           body: Center(
-//         child: Column(children: [
-//           ElevatedButton(
-//             onPressed: () {
-//               getCoordinate();
-//               print('recorded coordinate');
-//               //shake();
-//             },
-//             child: const Text('get coordinate'),
-//           ),
-//           SizedBox(height: 24),
-//           Text(
-//             shakeCount.toString(),
-//             style: TextStyle(fontSize: 24),
-//           ),
-//           SizedBox(height: 24),
-//           ElevatedButton(
-//             onPressed: () {
-//               MapsLauncher.launchCoordinates(lat, long);
-//             },
-//             child: const Text('View on map'),
-//           ),
-//           // Center(
-//           //   child: FutureBuilder<Album>(
-//           //     future: futureAlbum,
-//           //     builder: (context, snapshot) {
-//           //       if (snapshot.hasData) {
-//           //         //return Text(snapshot.data!.id.toString()),
-//           //         print(snapshot.data!.id.toString());
-//           //       } else if (snapshot.hasError) {
-//           //         return Text('${snapshot.error}');
-//           //       }
-//           //
-//           //       // By default, show a loading spinner.
-//           //       return const CircularProgressIndicator();
-//           //     },
-//           //   ),
-//           // ),
-//           Container(
-//             child: _loadedPhotos.length == 0
-//                 ? Center(
-//                     child: ElevatedButton(
-//                       child: Text('Load Photos'),
-//                       onPressed: _fetchData,
-//                     ),
-//                   )
-//                 // The ListView that displays photos
-//                 : ListView.builder(
-//                     itemCount: _loadedPhotos.length,
-//                     itemBuilder: (BuildContext ctx, index) {
-//                       return ListTile(
-//                         leading: Image.network(
-//                           _loadedPhotos[index]["thumbnailUrl"],
-//                           width: 150,
-//                           fit: BoxFit.cover,
-//                         ),
-//                         title: Text(_loadedPhotos[index]['title']),
-//                         subtitle:
-//                             Text('Photo ID: ${_loadedPhotos[index]["id"]}'),
-//                       );
-//                     },
-//                   ),
-//           ),
-//         ]),
-//       )),
-//     );
-//   }
-// }
-
-// Future<Album> fetchAlbum() async {
-//   final response =
-//       await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
-//
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//
-//     return Album.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load album');
-//   }
-// }
-
-// class Album {
-//   int userId;
-//   int id;
-//   String title;
-//
-//   Album({
-//     required this.userId,
-//     required this.id,
-//     required this.title,
-//   });
-//
-//   factory Album.fromJson(Map<String, dynamic> json) {
-//     return Album(
-//       userId: json['userId'],
-//       id: json['id'],
-//       title: json['title'],
-//     );
-//   }
-// }

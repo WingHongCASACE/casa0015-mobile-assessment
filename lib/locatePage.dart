@@ -164,17 +164,7 @@ class locatePageState extends State<locatePage> {
                               : MaterialStateProperty.all(Colors.green),
                       'specify place'),
                   SizedBox(height: 24.h),
-                  // Text(
-                  //   shakeCount.toString(),
-                  //   style: TextStyle(fontSize: 24),
-                  // ),
                   SizedBox(height: 24.h),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     MapsLauncher.launchCoordinates(lat, long);
-                  //   },
-                  //   child: const Text('View on map'),
-                  // ),
                 ],
               ),
             ),
@@ -184,11 +174,7 @@ class locatePageState extends State<locatePage> {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.6,
               child: Drawer(
-                // Add a ListView to the drawer. This ensures the user can scroll
-                // through the options in the drawer if there isn't enough vertical
-                // space to fit everything.
                 child: ListView(
-                  // Important: Remove any padding from the ListView.
                   padding: EdgeInsets.zero,
                   children: [
                     UserAccountsDrawerHeader(
@@ -197,9 +183,6 @@ class locatePageState extends State<locatePage> {
                               ? Colors.lightGreen[800]
                               : Colors.purple),
                       accountName: Container(
-                        // padding: _auth.currentUser != null
-                        //     ? EdgeInsets.symmetric(horizontal: 95)
-                        //     : EdgeInsets.only(left: 95),
                         child: Text(
                           _auth.currentUser != null
                               ? '${_auth.currentUser?.displayName}'
@@ -209,16 +192,7 @@ class locatePageState extends State<locatePage> {
                           ),
                         ),
                       ),
-                      // Text(
-                      //   "",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
                       accountEmail: Container(
-                        // padding: _auth.currentUser != null
-                        //     ? EdgeInsets.symmetric(horizontal: 60)
-                        //     : EdgeInsets.only(left: 100),
                         child: Text(
                           _auth.currentUser != null
                               ? '\n${_auth.currentUser?.email}'
@@ -239,12 +213,6 @@ class locatePageState extends State<locatePage> {
                         ),
                       ),
                     ),
-                    // const DrawerHeader(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.blue,
-                    //   ),
-                    //   child: Text('Drawer Header'),
-                    // ),
                     Visibility(
                       visible: _auth.currentUser != null ? false : true,
                       child: ListTile(
@@ -345,21 +313,6 @@ class locatePageState extends State<locatePage> {
                                                     });
                                                     print(e);
                                                   }
-                                                  // if (_auth.currentUser?.email ==
-                                                  //     'null') {
-                                                  //   setState(() {
-                                                  //     print("failed");
-                                                  //     loadingSpin = false;
-                                                  //     showDialog(
-                                                  //       context: context,
-                                                  //       builder: (ctx) => AlertDialog(
-                                                  //           title: Text("Error"),
-                                                  //           content: Text(
-                                                  //               'Log in failed')),
-                                                  //     );
-                                                  //   });
-                                                  // }
-
                                                   print(email);
                                                   print(password);
                                                   print(
@@ -372,10 +325,6 @@ class locatePageState extends State<locatePage> {
                                     ),
                                     // actions: [],
                                   ));
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
-                          //Navigator.pop(context);
                         },
                       ),
                     ),
@@ -496,21 +445,6 @@ class locatePageState extends State<locatePage> {
                                                     });
                                                     print(e);
                                                   }
-                                                  // if (_auth.currentUser?.email ==
-                                                  //     'null') {
-                                                  //   setState(() {
-                                                  //     print("failed");
-                                                  //     loadingSpin = false;
-                                                  //     showDialog(
-                                                  //       context: context,
-                                                  //       builder: (ctx) => AlertDialog(
-                                                  //           title: Text("Error"),
-                                                  //           content: Text(
-                                                  //               'Log in failed')),
-                                                  //     );
-                                                  //   });
-                                                  // }
-
                                                   print(email);
                                                   print(password);
                                                   print(
@@ -523,10 +457,6 @@ class locatePageState extends State<locatePage> {
                                     ),
                                     // actions: [],
                                   ));
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
-                          // Navigator.pop(context);
                         },
                       ),
                     ),
@@ -534,9 +464,6 @@ class locatePageState extends State<locatePage> {
                       title: const Text('Reservation records'),
                       enabled: (_auth.currentUser != null) ? true : false,
                       onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
                         Navigator.pop(context);
                         Navigator.push(
                           context,
@@ -560,9 +487,6 @@ class locatePageState extends State<locatePage> {
                       child: ListTile(
                         title: const Text('Sign out'),
                         onTap: () {
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
                           _auth.signOut();
                           Navigator.pushReplacement(
                               context,
@@ -571,8 +495,6 @@ class locatePageState extends State<locatePage> {
                                       super.widget));
                           print('signed out');
                           print(_auth.authStateChanges());
-
-                          //Navigator.pop(context);
                         },
                       ),
                     ),
@@ -610,29 +532,7 @@ class locatePageState extends State<locatePage> {
                     ],
                   ),
                 ),
-              )
-              // ElevatedButton(
-              //   style: ButtonStyle(
-              //     backgroundColor: MaterialStateProperty.all<Color>(
-              //       Colors.blue.withOpacity(0.5),
-              //     ),
-              //   ),
-              //   onPressed: () {
-              //     _fetchData();
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         //builder: (context) => drawResultPage(),
-              //         builder: (context) => drawResultPage(),
-              //       ),
-              //     );
-              //   },
-              //   child: Text(
-              //     'Find ',
-              //     style: TextStyle(fontSize: 30),
-              //   ),
-              // ),
-              ),
+              )),
         ),
       ),
     );
@@ -691,14 +591,7 @@ class locatePageState extends State<locatePage> {
                             locateMethodSpecifyPlace = true;
                             print(searchAddress);
                             _fetchCoord();
-                            //await _fetchData();
                           });
-                          // setState(() async {
-                          //   List<Location> location =
-                          //       await locationFromAddress(searchAddress);
-                          //   print(location);
-                          // });
-
                         } else {
                           setState(() async {
                             FocusManager.instance.primaryFocus?.unfocus();
@@ -706,7 +599,6 @@ class locatePageState extends State<locatePage> {
                             locateMethodSpecifyPlace = false;
                           });
                         }
-                        //shake();
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -747,7 +639,6 @@ class locatePageState extends State<locatePage> {
   }
 
   Future<void> _fetchCoord() async {
-    //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
     String API_URL =
         'https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress.replaceAll(RegExp(' '), "+")}&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
     //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.421998333333335%2C-122.084&radius=200&type=dissert&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
@@ -768,8 +659,6 @@ class locatePageState extends State<locatePage> {
     //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
     String API_URL =
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.4219%2C-122.084&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.86605%2C151.1957362&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
     final response = await http.get(Uri.parse(API_URL));
     data = json.decode(response.body);
     print(response);

@@ -192,16 +192,10 @@ class SliderPage extends StatelessWidget {
             image,
             color: Colors.white,
           ),
-          //SvgPicture.asset(
-          //   image,
-          //   width: width * 0.6,
-          // ),
           SizedBox(
             height: 50.h,
           ),
           SizedBox(
-            // height: 60,
-            //width: 100,
             child: Text(
               title,
               style: TextStyle(

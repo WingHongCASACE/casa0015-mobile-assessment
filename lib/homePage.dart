@@ -181,9 +181,6 @@ class _homePageState extends State<homePage> {
           child: Container(
             width: MediaQuery.of(context).size.width * 0.6,
             child: Drawer(
-              // Add a ListView to the drawer. This ensures the user can scroll
-              // through the options in the drawer if there isn't enough vertical
-              // space to fit everything.
               child: ListView(
                 // Important: Remove any padding from the ListView.
                 padding: EdgeInsets.zero,
@@ -194,9 +191,6 @@ class _homePageState extends State<homePage> {
                             ? Colors.lightGreen[800]
                             : Colors.purple),
                     accountName: Container(
-                      // padding: _auth.currentUser != null
-                      //     ? EdgeInsets.symmetric(horizontal: 95)
-                      //     : EdgeInsets.only(left: 95),
                       child: Text(
                         _auth.currentUser != null
                             ? '${_auth.currentUser?.displayName}'
@@ -206,16 +200,7 @@ class _homePageState extends State<homePage> {
                         ),
                       ),
                     ),
-                    // Text(
-                    //   "",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
                     accountEmail: Container(
-                      // padding: _auth.currentUser != null
-                      //     ? EdgeInsets.symmetric(horizontal: 60)
-                      //     : EdgeInsets.only(left: 100),
                       child: Text(
                         _auth.currentUser != null
                             ? '\n${_auth.currentUser?.email}'
@@ -236,12 +221,6 @@ class _homePageState extends State<homePage> {
                       ),
                     ),
                   ),
-                  // const DrawerHeader(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.blue,
-                  //   ),
-                  //   child: Text('Drawer Header'),
-                  // ),
                   Visibility(
                     visible: _auth.currentUser != null ? false : true,
                     child: ListTile(
@@ -339,20 +318,6 @@ class _homePageState extends State<homePage> {
                                                   });
                                                   print(e);
                                                 }
-                                                // if (_auth.currentUser?.email ==
-                                                //     'null') {
-                                                //   setState(() {
-                                                //     print("failed");
-                                                //     loadingSpin = false;
-                                                //     showDialog(
-                                                //       context: context,
-                                                //       builder: (ctx) => AlertDialog(
-                                                //           title: Text("Error"),
-                                                //           content: Text(
-                                                //               'Log in failed')),
-                                                //     );
-                                                //   });
-                                                // }
 
                                                 print(email);
                                                 print(password);
@@ -365,10 +330,6 @@ class _homePageState extends State<homePage> {
                                   ),
                                   // actions: [],
                                 ));
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        //Navigator.pop(context);
                       },
                     ),
                   ),
@@ -490,21 +451,6 @@ class _homePageState extends State<homePage> {
                                                   });
                                                   print(e);
                                                 }
-                                                // if (_auth.currentUser?.email ==
-                                                //     'null') {
-                                                //   setState(() {
-                                                //     print("failed");
-                                                //     loadingSpin = false;
-                                                //     showDialog(
-                                                //       context: context,
-                                                //       builder: (ctx) => AlertDialog(
-                                                //           title: Text("Error"),
-                                                //           content: Text(
-                                                //               'Log in failed')),
-                                                //     );
-                                                //   });
-                                                // }
-
                                                 print(email);
                                                 print(password);
                                                 print(_auth.currentUser?.email);
@@ -516,10 +462,6 @@ class _homePageState extends State<homePage> {
                                   ),
                                   // actions: [],
                                 ));
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        // Navigator.pop(context);
                       },
                     ),
                   ),
@@ -527,9 +469,6 @@ class _homePageState extends State<homePage> {
                     title: const Text('Reservation records'),
                     enabled: (_auth.currentUser != null) ? true : false,
                     onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
                       Navigator.pop(context);
                       Navigator.push(
                         context,
@@ -553,9 +492,6 @@ class _homePageState extends State<homePage> {
                     child: ListTile(
                       title: const Text('Sign out'),
                       onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
                         _auth.signOut();
                         Navigator.pushReplacement(
                             context,
@@ -564,8 +500,6 @@ class _homePageState extends State<homePage> {
                                     super.widget));
                         print('signed out');
                         print(_auth.authStateChanges());
-
-                        //Navigator.pop(context);
                       },
                     ),
                   ),
