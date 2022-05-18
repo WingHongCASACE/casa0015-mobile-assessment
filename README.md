@@ -3,7 +3,7 @@
 :hotdog: &emsp; &emsp; :taco: &emsp; &emsp; :stew: &emsp; &emsp; :sushi: &emsp; &emsp; :tropical_drink: &emsp; &emsp; :pie: &emsp; &emsp; :oden: &emsp; &emsp; :dumpling: &emsp; &emsp; :curry: &emsp; &emsp; :pancakes: &emsp; &emsp; :shallow_pan_of_food: &emsp; &emsp; :fried_shrimp: &emsp; &emsp; :doughnut: &emsp; &emsp;   
 This App will suggest a dining place for user, in order to release the (potential stress or pain) from deciding a place to eat. User can provide his/her current location or to specifiy one, then a dining place nearby will be suggested. If desired, user can make a reservation. When logged-in reservation record can be viewed.
 
-## Use this README File 
+## App feature
 
 The App mainly consists of a home page, a page to decide whether the current location or a specified location to be used, a result page, a reservation page, an about page, and a reservation record page (for account user). Users can register an account and sign-in, which enables them to view their records.
 
@@ -14,16 +14,7 @@ The App mainly consists of a home page, a page to decide whether the current loc
 <img src="https://user-images.githubusercontent.com/91855312/168931762-f1336732-8cfd-456e-bdce-0c3eb251541d.JPG" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168931785-ef917910-6a56-4782-a4e8-7c68c718ab93.JPG" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168931530-d671c8ce-a3cf-4d75-b95e-97c19148893f.jpg" width=16%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168931533-a78a734c-2ece-4eca-9db2-d6bb55c7b6aa.jpg" width=16%/><br>The transaction screens show a quote about food. It was randomly drew from a list of quotes saved in the App. The result shows the information of the dining place including the name, price and rating, as well as the address. On the other hand, the photo was drew from a list of photos saved in the App which may not represent the cuisine. This is due to the abscence of images proved by the appointed API (Google maps nearby search). Users can navigate to the dining place address on google map via package 'maps_launcher'.<br><br><br>
 <img src="https://user-images.githubusercontent.com/91855312/168931610-b2412a99-8a89-421a-9d33-b06e9ca0bd2c.jpg" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168931611-2926c498-5428-446a-9613-db64801eec3d.jpg" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168931606-95f415f4-803d-449a-b678-536f2152371c.jpg" width=20%/><br>If signed-in, the default name and contact information will be suggested. All fields have to be filled or warning will appear. Once successfully submitted user will be notified. <br><br><br>
 <img src="https://user-images.githubusercontent.com/91855312/168933537-df15d158-70ea-4f28-9539-ded9fa91e267.jpg" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168933540-66a50462-788c-4bd7-8930-b4a5877811ec.jpg" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168933541-c8ca8936-6c39-4073-a99a-6d2e5b09bbaa.jpg" width=20%/>&nbsp<img src="https://user-images.githubusercontent.com/91855312/168933542-e912ca34-17ec-43f1-b69e-8b8e06f7257a.jpg" width=20%/><br>Users can click the buttons or swipe to left/right to move between subpages.<br>
-  
-  
-  
-
-
-
-
-
-
-
+   
 https://user-images.githubusercontent.com/91855312/168933151-9f2ff638-8b33-40df-9a46-28e83d89f823.mp4
 
 
@@ -34,11 +25,11 @@ https://user-images.githubusercontent.com/91855312/168933161-46ded0e9-593a-46c1-
 
 
 
-## Include A Section That Tells Developers How To Install The App
+## Using The App
 
 To enjoy the experience of unpredictable meals, simply download the APK file to your phone, install and run it. Its that simple! :smile:    
 
-For developer who wants to refine/extend the App, please download the whole folder and manage/ edit it in your preferable IDE. Please also install [Flutter](https://docs.flutter.dev/get-started/install) and an IDE such as [Android Studio](https://developer.android.com/studio/install).
+For developer who wants to refine/extend the App, please go to [the master branch: WingHongCASACE/casa0015-mobile-assessment/tree/master](https://github.com/WingHongCASACE/casa0015-mobile-assessment/tree/master) and download the whole folder and manage/ edit it in your preferable IDE. Please also install [Flutter](https://docs.flutter.dev/get-started/install) and an IDE such as [Android Studio](https://developer.android.com/studio/install).
 
 This App uses 2 google maps APIs: geocode and nearby search. In addition, it uses 2 services from Firebase: Authentication and Firestore Database. Please note the API keys in the folder will be depreciated in months. Please kindly replace with you own API key for geocode and nearby search function. For Firebase application, please create a firebase project. Register you App on Firebase by providing your own ```applicationID``` in ```android>app>build.grade``` (for Android App) and download and (re)place the json config file in the Android app module root directory.   
 
