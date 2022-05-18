@@ -639,9 +639,9 @@ class locatePageState extends State<locatePage> {
   }
 
   Future<void> _fetchCoord() async {
-    String API_URL =
-        'https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress.replaceAll(RegExp(' '), "+")}&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
-    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.421998333333335%2C-122.084&radius=200&type=dissert&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
+    String API_URL = '';
+    //TODO replace the empty space with api below after adding your own key
+    //'https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress.replaceAll(RegExp(' '), "+")}&key=placeYourAPIkeyHere';
     final response = await http.get(Uri.parse(API_URL));
     final data = json.decode(response.body);
     lat = data["results"][0]['geometry']['location']['lat'];
@@ -657,8 +657,9 @@ class locatePageState extends State<locatePage> {
 
   Future<void> _fetchData() async {
     //const API_URL = 'https://jsonplaceholder.typicode.com/photos';
-    String API_URL =
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=AIzaSyAt8mEWR3AvpdXpaRE7yWSwE_dRS9VKg4Y';
+    String API_URL = '';
+    //TODO replace the empty space with api below after adding your own key
+    //'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=200&type=restaurant&key=placeYourAPIkeyHere';
     final response = await http.get(Uri.parse(API_URL));
     data = json.decode(response.body);
     print(response);
