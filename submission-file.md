@@ -65,6 +65,12 @@ Some user-experience elements have been added to the application. For example, a
 
 ----
 
+## Presentation documents
+* [PPT presentation](https://liveuclac-my.sharepoint.com/:p:/g/personal/ucfnwho_ucl_ac_uk/EeAn2RLOUUZLm3nk_K56h9kBwAWdTwXEhfG0u-4DVc_SxA?e=rUoR7q)  
+
+* [PPT presentation in pdf](https://github.com/WingHongCASACE/casa0015-mobile-assessment/files/8754107/wing_ucfnwho_mobile.system.present.pdf)
+
+
 ## Declaration of Authorship
 
 I, Wing Hong OR, confirm that the work presented in this assessment is my own. Where information has been derived from other sources, I confirm that this has been indicated in the work.
